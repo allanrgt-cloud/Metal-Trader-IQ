@@ -1,0 +1,10 @@
+-- Mesures principales du projet Metal-Trader IQ
+
+-- 1. Marge Arbitrage Brute
+Marge Arbitrage Brute = SUM(cours_spot_lme[LME_AskPrice]) - SUM(inventaire_jarry[PhysicalSalesPrice])
+
+-- 2. Marge Arbitrage Nette (Incluant Octroi de Mer)
+Marge Arbitrage Nette = [Marge Arbitrage Brute] * (1 - SELECTEDVALUE(inventaire_jarry[OctroiDeMerRate]))
+
+-- 3. Valeur Stock Jarry
+Valeur Stock Jarry = SUMX(inventaire_jarry, inventaire_jarry[QuantityOnHand] * inventaire_jarry[PhysicalSalesPrice])
